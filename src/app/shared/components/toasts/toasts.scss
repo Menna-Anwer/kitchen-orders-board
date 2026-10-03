@@ -1,0 +1,69 @@
+@use 'variables' as *;
+
+.toasts {
+  position: fixed;
+  inset-inline: 20px;
+  inset-block-end: 20px;
+  z-index: 2000;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  width: min(100%, 440px);
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 12px !important;
+  color: $white !important;
+  pointer-events: auto;
+  box-shadow: $shadow-lg !important;
+}
+.toast--success {
+  background: $success !important;
+}
+.toast--error {
+  background: $danger !important;
+}
+.toast__content {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px 8px 16px;
+}
+.toast__icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 15px;
+}
+
+.toast__message {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.toast__close {
+  flex-shrink: 0;
+  color: $white !important;
+}
+.toast__close i {
+  font-size: 14px;
+}
+@media (max-width: $mobile) {
+  .toasts {
+    inset-inline: 12px;
+    inset-block-end: 12px;
+  }
+  .toast {
+    width: 100%;
+  }
+}

@@ -1,0 +1,61 @@
+<div
+  class="toasts"
+  aria-live="polite"
+  aria-atomic="true"
+>
+  @for (
+    toast of Notification.toasts();
+    track toast.id
+  ) {
+    <mat-card
+      class="toast"
+      [class.toast--error]="toast.kind === 'error'"
+      [class.toast--success]="toast.kind === 'success'"
+      [attr.role]="
+        toast.kind === 'error'
+          ? 'alert'
+          : 'status'
+      "
+    >
+      <div class="toast__content">
+
+        <div class="toast__icon">
+          @if (toast.kind === 'success') {
+            <i
+              class="fa-solid fa-circle-check"
+              aria-hidden="true"
+            ></i>
+          } @else {
+            <i
+              class="fa-solid fa-circle-exclamation"
+              aria-hidden="true"
+            ></i>
+          }
+        </div>
+
+        <span class="toast__message">
+          {{
+            toast.messageKey
+              | transloco: toast.params
+          }}
+        </span>
+
+        <button
+          mat-icon-button
+          type="button"
+          class="toast__close"
+          [attr.aria-label]="
+            'common.close' | transloco
+          "
+          (click)="Notification.dismiss(toast.id)"
+        >
+          <i
+            class="fa-solid fa-xmark"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </div>
+    </mat-card>
+  }
+</div>

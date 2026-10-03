@@ -1,59 +1,54 @@
-# KitchenOrdersBoard
+# Kitchen Orders Board: Take-home Task
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
+This folder contains:
 
-## Development server
+| File | What it is |
+|---|---|
+| `Kitchen-Orders-Board-Task.pdf` | Full task description, requirements and review criteria. Read this first. |
+| `db.json` | Mock API data (menu and orders) for json-server. |
+| `README.md` | This file: quick start. |
 
-To start a local development server, run:
+## Quick start
 
-```bash
-ng serve
-```
+1. Create an Angular 17+ project (standalone, strict mode):
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+   ```bash
+   npx @angular/cli@latest new kitchen-orders-board --routing --style=scss --strict
+   ```
 
-## Code scaffolding
+2. Copy `db.json` into the project root.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+3. Start the mock API (runs on http://localhost:3000):
 
-```bash
-ng generate component component-name
-```
+   ```bash
+   npx json-server@1.0.0-beta.3 db.json --port 3000
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+4. Try it:
 
-```bash
-ng generate --help
-```
+   ```
+   GET    http://localhost:3000/menu
+   GET    http://localhost:3000/orders
+   GET    http://localhost:3000/orders?status=new
+   GET    http://localhost:3000/orders/1041
+   PATCH  http://localhost:3000/orders/1041     body: { "status": "ready" }
+   POST   http://localhost:3000/orders          body: a new order object
+   ```
 
-## Building
+json-server saves changes to `db.json`. Keep a clean copy if you want to reset the data.
 
-To build the project run:
+## Check your price calculation
 
-```bash
-ng build
-```
+| Order | Type | Subtotal | Service 12% | VAT 14% | Total |
+|---|---|---:|---:|---:|---:|
+| #1041 | dine-in | 450.00 | 54.00 | 70.56 | 574.56 |
+| #1044 | delivery | 240.00 | 0.00 | 33.60 | 273.60 |
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Submitting
 
-## Running unit tests
+Reply to the message this task came with, and include:
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- A link to your public GitHub repository
+- Optional: a deployed link or a short screen recording (3 minutes or less)
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Good luck!

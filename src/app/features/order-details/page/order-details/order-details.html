@@ -1,0 +1,242 @@
+<section class="details-page">
+  <header class="details-page__header">
+    <button mat-stroked-button type="button" class="details-page__back" (click)="goBack()">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      {{ 'common.back' | transloco }}
+    </button>
+    @if (order(); as currentOrder) {
+    <div class="details-page__heading">
+      <div class="details-page__order-title">
+        <h1>
+          #{{ currentOrder.number }}
+        </h1>
+        <span class="details-page__type">
+          @switch (currentOrder.type) {
+          @case ('dine-in') {
+          <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+          }
+          @case ('takeaway') {
+          <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+          }
+          @case ('delivery') {
+          <i class="fa-solid fa-motorcycle" aria-hidden="true"></i>
+          } }
+         {{ typeTranslationKey[currentOrder.type] | transloco }}
+
+        </span>
+      </div>
+      <p>
+        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+        {{ currentOrder.createdAt | date:'medium' }}
+      </p>
+    </div>
+    }
+  </header>
+  @if (isLoading()) {
+  <app-state-message type="loading" [message]="'orders.detailsLoading'" />
+  }
+  @else if (error()) {
+  <app-state-message type="error" [message]="error()!" (retry)="retry()" />
+  }
+  @else if (order(); as currentOrder) {
+  <div class="details-grid">
+    <mat-card class="details-card details-card--items">
+      <header class="details-card__header">
+        <div class="details-card__title">
+          <span class="details-card__icon">
+            <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+          </span>
+          <div>
+            <h2>
+              {{ 'orders.items' | transloco }}
+            </h2>
+            <span>
+              {{ currentOrder.items.length }}
+              {{ 'orders.items' | transloco }}
+            </span>
+          </div>
+        </div>
+      </header>
+      <div class="items">
+        @for ( line of lines(); track $index ) {
+        <article class="item">
+          <div class="item__quantity">
+            {{ line.qty }}
+          </div>
+          <div class="item__content">
+            <div class="item__top">
+              <div>
+                <h3>
+                  {{ line.name }}
+                </h3>
+                <p>
+                  EGP
+                  {{ line.lineTotal / line.qty | number:'1.2-2' }}
+                  {{ 'orders.each' | transloco }}
+                </p>
+              </div>
+              <strong class="item__total">
+                EGP {{ line.lineTotal | number:'1.2-2' }}
+              </strong>
+            </div>
+            @if (line.note) {
+            <div class="item__note">
+              <i class="fa-regular fa-note-sticky" aria-hidden="true"></i>
+              <span>
+                {{ line.note }}
+              </span>
+            </div>
+            } @else {
+            <div class="item__note item__note--empty">
+              <i class="fa-regular fa-note-sticky" aria-hidden="true"></i>
+              <span>
+                {{ 'orders.noNote' | transloco }}
+              </span>
+            </div>
+            }
+          </div>
+        </article>
+        } @empty {
+        <div class="items__empty">
+          <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+          <span>
+            {{ 'orders.noItems' | transloco }}
+          </span>
+        </div>
+        }
+      </div>
+    </mat-card>
+    <div class="details-sidebar">
+      <mat-card class="details-card">
+        <header class="details-card__header">
+          <div class="details-card__title">
+            <span class="details-card__icon">
+              <i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+            </span>
+            <h2>
+              {{ 'orders.orderInformation' | transloco }}
+            </h2>
+          </div>
+        </header>
+        <div class="order-info">
+          <div class="order-info__row">
+            <span>
+              <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+              {{ 'orders.orderNumber' | transloco }}
+            </span>
+            <strong>
+              #{{ currentOrder.number }}
+            </strong>
+          </div>
+          <div class="order-info__row">
+            <span>
+              <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+
+              {{ 'orders.type' | transloco }}
+            </span>
+            <strong>
+              {{ typeTranslationKey[currentOrder.type] | transloco }}
+            </strong>
+          </div>
+          <div class="order-info__row">
+            <span>
+              <i class="fa-solid fa-chair" aria-hidden="true"></i>
+              {{ 'orders.table' | transloco }}
+            </span>
+
+            <strong>
+              @if (currentOrder.table !== null) {
+              {{ currentOrder.table }}
+              } @else {
+              —
+              }
+            </strong>
+          </div>
+          <div class="order-info__row">
+            <span>
+              <i class="fa-solid fa-circle-dot" aria-hidden="true"></i>
+
+              {{ 'orders.status' | transloco }}
+            </span>
+            <strong class="order-info__status" [class.order-info__status--new]="
+                  currentOrder.status === 'new'
+                " [class.order-info__status--preparing]="
+                  currentOrder.status === 'preparing'
+                " [class.order-info__status--ready]="
+                  currentOrder.status === 'ready'
+                " [class.order-info__status--served]="
+                  currentOrder.status === 'served'
+                ">
+              {{ 'orders.' + currentOrder.status | transloco }}
+            </strong>
+          </div>
+          <div class="order-info__row">
+            <span>
+              <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+              {{ 'orders.createdAt' | transloco }}
+            </span>
+            <strong>
+              {{ currentOrder.createdAt | date:'medium' }}
+            </strong>
+          </div>
+        </div>
+      </mat-card>
+      @if (totals(); as price) {
+      <mat-card class="details-card details-card--price">
+        <header class="details-card__header">
+          <div class="details-card__title">
+            <span class="details-card__icon">
+              <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+            </span>
+            <h2>
+              {{ 'orders.priceBreakdown' | transloco }}
+            </h2>
+          </div>
+        </header>
+        <div class="price-breakdown">
+          <div class="price-row">
+            <span>
+              {{ 'orders.subtotal' | transloco }}
+            </span>
+            <strong>
+              EGP
+              {{ price.subtotal | number:'1.2-2' }}
+            </strong>
+          </div>
+          <div class="price-row">
+            <span>
+              {{ 'orders.service' | transloco }}
+              <small>(12%)</small>
+            </span>
+            <strong>
+              EGP
+              {{ price.service | number:'1.2-2' }}
+            </strong>
+          </div>
+          <div class="price-row">
+            <span>
+              {{ 'orders.vat' | transloco }}
+              <small>(14%)</small>
+            </span>
+            <strong>
+              EGP
+              {{ price.vat | number:'1.2-2' }}
+            </strong>
+          </div>
+          <div class="price-row price-row--total">
+            <span>
+              {{ 'orders.grandTotal' | transloco }}
+            </span>
+            <strong>
+              EGP
+              {{ price.total | number:'1.2-2' }}
+            </strong>
+          </div>
+        </div>
+      </mat-card>
+      }
+    </div>
+  </div>
+  }
+
+</section>

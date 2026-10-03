@@ -1,0 +1,76 @@
+<nav class="navbar">
+  <div class="navbar__inner">
+    <!-- Brand -->
+    <a class="navbar__brand" routerLink="/orders" (click)="closeMenu()">
+      <span class="navbar__logo"> KO </span>
+
+      <span class="navbar__brand-text">
+        {{ 'app.name' | transloco }}
+      </span>
+    </a>
+    <div class="navbar__menu" [class.navbar__menu--open]="isMenuOpen">
+      <div class="navbar__links">
+        <a
+          routerLink="/orders"
+          routerLinkActive="navbar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="navbar__link"
+          (click)="closeMenu()"
+        >
+          <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+
+          <span>
+            {{ 'nav.orders' | transloco }}
+          </span>
+        </a>
+
+        <a
+          routerLink="/orders/new"
+          routerLinkActive="navbar__link--active"
+          class="navbar__link"
+          (click)="closeMenu()"
+        >
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+
+          <span>
+            {{ 'nav.newOrder' | transloco }}
+          </span>
+        </a>
+      </div>
+
+      <button
+        type="button"
+        class="navbar__language"
+        (click)="toggleLanguage()"
+        [attr.aria-label]="
+          languageService.getCurrentLanguage() === 'ar'
+            ? ('common.english' | transloco)
+            : ('common.arabic' | transloco)
+        "
+      >
+        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+        <span>
+          {{
+            languageService.getCurrentLanguage() === 'ar'
+              ? ('common.english' | transloco)
+              : ('common.arabic' | transloco)
+          }}
+        </span>
+      </button>
+    </div>
+    <button
+      type="button"
+      class="navbar__menu-button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen"
+      [attr.aria-label]="'common.menu' | transloco"
+    >
+      <i
+        class="fa-solid"
+        [class.fa-bars]="!isMenuOpen"
+        [class.fa-xmark]="isMenuOpen"
+        aria-hidden="true"
+      ></i>
+    </button>
+  </div>
+</nav>

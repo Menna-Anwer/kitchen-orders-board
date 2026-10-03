@@ -1,0 +1,321 @@
+@use 'variables' as *;
+
+.order-card {
+  position: relative;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  padding: 16px;
+
+  border: 1px solid $border !important;
+
+  border-radius: 14px !important;
+
+  background: $white !important;
+
+  box-shadow: $shadow-xs !important;
+
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    border-color $transition-fast;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: $shadow-md !important;
+}
+
+
+/* ========================================
+   Status line
+======================================== */
+
+.order-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset-inline-start: 0;
+  inset-block: 0;
+
+  width: 3px;
+
+  background: $primary;
+}
+
+
+/* New */
+
+.order-card--new::before {
+  background: $status-new;
+}
+
+
+/* Preparing */
+
+.order-card--preparing::before {
+  background: $status-preparing;
+}
+
+
+/* Ready */
+
+.order-card--ready::before {
+  background: $status-ready;
+}
+
+
+/* Served */
+
+.order-card--served::before {
+  background: $status-served;
+}
+
+
+/* ========================================
+   Header
+======================================== */
+
+.order-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-block-end: 12px;
+}
+
+.order-card__number {
+  color: $text-primary;
+
+  font-size: 17px;
+  line-height: 22px;
+
+  font-weight: 800;
+}
+
+
+/* ========================================
+   Type badge
+======================================== */
+
+.order-card__type {
+  min-height: 26px;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding-inline: 9px;
+
+  border-radius: $radius-pill;
+
+  background: #f5f6f8;
+
+  color: $text-secondary;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.order-card__type i {
+  font-size: 11px;
+
+  color: $primary;
+}
+
+
+/* ========================================
+   Meta
+======================================== */
+
+.order-card__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-block-end: 16px;
+
+  color: $text-secondary;
+
+  font-size: 12px;
+}
+
+.order-card__meta span {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.order-card__meta i {
+  color: $primary;
+
+  font-size: 11px;
+}
+
+.order-card__separator {
+  color: #c5ccd6;
+}
+
+
+/* ========================================
+   Details
+======================================== */
+
+.order-card__details {
+  display: grid;
+
+  gap: 10px;
+
+  margin-block-end: 14px;
+}
+
+.order-card__detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.order-card__detail-row span {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: $text-secondary;
+
+  font-size: 12px;
+}
+
+.order-card__detail-row span i {
+  width: 14px;
+
+  color: $text-secondary;
+
+  font-size: 12px;
+}
+
+.order-card__detail-row strong {
+  color: $text-primary;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================
+   Late
+======================================== */
+
+.order-card__late {
+  min-height: 32px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin-block-end: 14px;
+
+  padding-inline: 10px;
+
+  border-radius: 7px;
+
+  background: $danger-light;
+
+  color: $danger;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.order-card__late i {
+  font-size: 12px;
+}
+
+
+/* ========================================
+   Actions
+======================================== */
+
+.order-card__actions {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1.35fr);
+
+  gap: 8px;
+}
+
+.order-card__actions button {
+  min-width: 0;
+
+  min-height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border-radius: 9px !important;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.order-card__view {
+  border-color: $primary !important;
+
+  color: $primary !important;
+
+  background: $white !important;
+}
+
+.order-card__view:hover {
+  background: $primary-light !important;
+}
+
+.order-card__move {
+  background: $primary !important;
+
+  color: $white !important;
+}
+
+.order-card__move:hover {
+  background: $primary-dark !important;
+}
+
+.order-card__move:disabled {
+  opacity: 0.65;
+}
+
+@media (max-width: $mobile) {
+  .order-card {
+    padding: 14px;
+  }
+  .order-card__actions {
+    grid-template-columns: 1fr;
+  }
+  .order-card__actions button {
+    width: 100%;
+  }
+}

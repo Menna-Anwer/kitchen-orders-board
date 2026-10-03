@@ -1,0 +1,760 @@
+@use 'variables' as *;
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.form-page {
+  width: min(
+    calc(100% - 48px),
+    $page-max-width
+  );
+
+  margin-inline: auto;
+
+  padding-block: 32px 48px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.form-page__header {
+  margin-block-end: 24px;
+}
+
+.form-page__heading {
+  display: block;
+}
+
+.form-page__title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.form-page__icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  background: $primary-light;
+  color: $primary;
+
+  font-size: 18px;
+}
+
+.form-page__heading h1 {
+  margin: 0;
+
+  color: $text-primary;
+
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 800;
+}
+
+.form-page__heading p {
+  margin: 3px 0 0;
+
+  color: $text-secondary;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-page__subtitle {
+  display: block;
+
+  margin-inline-start: 60px;
+  margin-block-start: 4px;
+
+  color: $text-secondary;
+
+  font-size: 13px;
+}
+
+
+/* =========================================
+   MAIN FORM LAYOUT
+========================================= */
+
+.order-form {
+  width: 100%;
+}
+
+.form-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(300px, 0.75fr);
+
+  align-items: start;
+
+  gap: 20px;
+}
+
+.form-main {
+  min-width: 0;
+
+  display: grid;
+
+  gap: 16px;
+}
+
+
+/* =========================================
+   FORM CARDS
+========================================= */
+
+.form-card {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 24px !important;
+
+  border: 1px solid $border !important;
+  border-radius: $radius-lg !important;
+
+  background: $white !important;
+
+  box-shadow: $shadow-sm !important;
+}
+
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-block-end: 20px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.section-number {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: $primary;
+  color: $white;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.section-title h2 {
+  margin: 0;
+
+  color: $text-primary;
+
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 800;
+}
+
+.section-title p {
+  margin: 3px 0 0;
+
+  color: $text-secondary;
+
+  font-size: 11px;
+}
+
+
+/* =========================================
+   ORDER INFORMATION
+========================================= */
+
+.order-info-fields {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+
+/* =========================================
+   MATERIAL FORM FIELDS
+========================================= */
+
+.form-page
+  ::ng-deep
+  .mat-mdc-form-field {
+  width: 100%;
+}
+
+.form-page
+  ::ng-deep
+  .mat-mdc-text-field-wrapper {
+  min-height: 52px;
+
+  background: $white;
+
+  border-radius: 9px;
+}
+
+.form-page
+  ::ng-deep
+  .mat-mdc-form-field-flex {
+  min-height: 52px;
+}
+
+.form-page
+  ::ng-deep
+  .mdc-notched-outline {
+  border-color: $border;
+}
+
+.form-page
+  ::ng-deep
+  .mat-mdc-form-field.mat-focused
+  .mdc-notched-outline {
+  border-color: $primary;
+
+  border-width: 1px;
+}
+
+.form-page
+  ::ng-deep
+  .mat-mdc-form-field.mat-focused
+  .mat-mdc-floating-label {
+  color: $primary;
+}
+
+.form-page
+  ::ng-deep
+  .mat-mdc-form-field-subscript-wrapper {
+  min-height: 18px;
+}
+
+
+/* =========================================
+   SELECT
+========================================= */
+
+.form-page
+  ::ng-deep
+  .mat-mdc-option {
+  min-height: 44px;
+}
+
+.form-page
+  ::ng-deep
+  .mat-mdc-option i {
+  width: 20px;
+
+  margin-inline-end: 8px;
+
+  color: $primary;
+}
+
+
+/* =========================================
+   ADD ITEM
+========================================= */
+
+.add-item-button {
+  min-height: 40px;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding-inline: 16px !important;
+
+  border: 1px solid $primary !important;
+  border-radius: $radius-pill !important;
+
+  background: $white !important;
+
+  color: $primary !important;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.add-item-button:hover {
+  background: $primary-light !important;
+}
+
+
+/* =========================================
+   ITEMS
+========================================= */
+
+.items-form {
+  display: grid;
+
+  gap: 10px;
+}
+
+.item-row {
+  display: grid;
+
+  grid-template-columns: 38px minmax(0, 1fr);
+
+  align-items: start;
+
+  gap: 10px;
+
+  padding: 12px;
+
+  border: 1px solid $border-light;
+
+  border-radius: 11px;
+
+  background: #fcfcfd;
+}
+
+.item-row__number {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  background: $primary-light;
+  color: $primary;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.item-row__fields {
+  min-width: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1.5fr)
+    105px
+    minmax(160px, 1fr)
+    40px;
+
+  align-items: start;
+
+  gap: 8px;
+}
+
+
+/* =========================================
+   REMOVE ITEM
+========================================= */
+
+.remove-item-button {
+  width: 40px;
+  height: 40px;
+
+  display: grid !important;
+  place-items: center;
+
+  margin-block-start: 6px;
+
+  border-radius: 9px !important;
+
+  color: $danger !important;
+}
+
+.remove-item-button:hover {
+  background: $danger-light !important;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.form-error {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-block-start: 10px;
+
+  padding: 9px 12px;
+
+  border-radius: 8px;
+
+  background: $danger-light;
+
+  color: $danger;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   SUMMARY CARD
+========================================= */
+
+.summary-card {
+  position: sticky;
+
+  top: 80px;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  border: 1px solid $border !important;
+  border-radius: $radius-lg !important;
+
+  background: $white;
+
+  box-shadow: $shadow-sm;
+}
+
+.summary-card__header {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 20px;
+
+  border-bottom: 1px solid $border-light;
+}
+
+.summary-card__icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  background: $primary-light;
+  color: $primary;
+
+  font-size: 17px;
+}
+
+.summary-card__header h2 {
+  margin: 0;
+
+  color: $text-primary;
+
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 800;
+}
+
+.summary-card__header p {
+  margin: 3px 0 0;
+
+  color: $text-secondary;
+
+  font-size: 11px;
+}
+
+.summary-card__body {
+  padding: 14px 20px 20px;
+}
+
+
+/* =========================================
+   SUMMARY ROWS
+========================================= */
+
+.summary-row {
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  color: $text-secondary;
+
+  font-size: 13px;
+}
+
+.summary-row strong {
+  color: $text-primary;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.summary-row small {
+  color: $text-muted;
+
+  font-size: 10px;
+}
+
+.summary-row--total {
+  min-height: 58px;
+
+  margin-block-start: 12px;
+
+  padding-inline: 14px;
+
+  border-radius: 11px;
+
+  background: $primary-light;
+
+  color: $text-primary;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.summary-row--total strong {
+  color: $primary;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+
+/* =========================================
+   RUNNING TOTAL
+========================================= */
+
+.running-total {
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-block-start: 16px;
+
+  padding-inline: 16px;
+
+  border-radius: 11px;
+
+  background: $primary-light;
+}
+
+.running-total__label {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: $text-primary;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.running-total__label i {
+  color: $primary;
+}
+
+.running-total strong {
+  color: $primary;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.form-actions {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-block-start: 20px;
+
+  padding: 14px 16px;
+
+  border: 1px solid $border;
+
+  border-radius: $radius-lg;
+
+  background: $white;
+
+  box-shadow: $shadow-xs;
+}
+
+.form-actions button {
+  min-width: 125px;
+  min-height: 42px;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border-radius: $radius-pill !important;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.form-actions__cancel {
+  border-color: $border !important;
+
+  color: $text-secondary !important;
+}
+
+.form-actions__cancel:hover {
+  background: $surface !important;
+}
+
+.form-actions__submit {
+  background: $primary !important;
+
+  color: $white !important;
+}
+
+.form-actions__submit:hover {
+  background: $primary-dark !important;
+}
+
+.form-actions button:disabled {
+  opacity: 0.55;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: $tablet) {
+
+  .form-page {
+    width: calc(100% - 32px);
+
+    padding-block: 24px 40px;
+  }
+
+  .form-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    position: static;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: $mobile) {
+
+  .form-page {
+    width: calc(100% - 24px);
+
+    padding-block: 20px 32px;
+  }
+
+  .form-page__heading h1 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .form-page__subtitle {
+    margin-inline-start: 60px;
+  }
+
+  .form-card {
+    padding: 16px !important;
+  }
+
+  .section-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .add-item-button {
+    width: 100%;
+  }
+
+  .order-info-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .item-row {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
+  .item-row__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .remove-item-button {
+    width: 100%;
+    margin-block-start: 0;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+
+    padding: 12px;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+}

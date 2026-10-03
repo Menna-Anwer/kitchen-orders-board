@@ -1,0 +1,54 @@
+<section class="orders-page">
+  <header class="orders-page__header">
+    <div class="orders-page__title">
+      <div class="orders-page__icon">
+        <i class="fa-solid fa-kitchen-set" aria-hidden="true"></i>
+      </div>
+      <div>
+        <h1>
+          {{ 'orders.title' | transloco }}
+        </h1>
+        <p>
+          {{ 'orders.subtitle' | transloco }}
+        </p>
+      </div>
+    </div>
+  </header>
+  <app-board-filters [searchValue]="search()" [typeValue]="type()" (searchChange)="onSearchChange($event)"
+    (typeChange)="onTypeChange($event)" />
+
+  @if ( store.isLoading() &&!store.hasData()) {
+  <app-state-message type="loading" [message]="'orders.loading'" />
+
+  }
+
+
+  @else if ( store.error() && !store.hasData() ) {
+  <app-state-message type="error" [message]="'orders.error'" (retry)="store.retry()" />
+  }
+
+  @else if (!store.isLoading() && filteredOrders().length === 0) {
+  <app-state-message type="empty" [message]="'orders.empty'" />
+
+  }
+
+  @else {
+  @if (store.error()) {
+  <div class="refresh-error" role="status">
+    <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+    <span>
+      {{ 'orders.refreshFailed' | transloco }}
+    </span>
+  </div>
+
+  }
+  <div class="orders-board">
+    <div class="orders-board__columns">
+      @for ( status of statuses; track status ) {
+      <app-board-column [status]="status" [orders]="ordersByStatus(status)" [now]="now()" [totals]="store.totals()"
+        [pendingIds]="store.pendingIds()" (moveForward)="moveOrder($event)" (open)="openOrder($event.id)" />
+      }
+    </div>
+  </div>
+  }
+</section>

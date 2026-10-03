@@ -1,0 +1,25 @@
+<section class="state-message" [attr.data-type]="type()" [attr.role]="type() === 'error' ? 'alert' : 'status'">
+    <div class="state-message__icon" aria-hidden="true">
+        @switch (type()) {
+        @case ('loading') {
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        }
+        @case ('empty') {
+        <i class="fa-regular fa-folder-open"></i>
+        }
+        @case ('error') {
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        }
+        }
+    </div>
+    <p class="state-message__text">
+        {{ message() | transloco }}
+    </p>
+    @if (type() === 'error') {
+    <button mat-stroked-button type="button" class="state-message__retry" (click)="retry.emit()">
+        <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+
+        {{ 'common.retry' | transloco }}
+    </button>
+    }
+</section>

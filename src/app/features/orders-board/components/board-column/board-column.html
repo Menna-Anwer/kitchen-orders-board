@@ -1,0 +1,79 @@
+<section
+  class="column"
+  [class.column--new]="status() === 'new'"
+  [class.column--preparing]="status() === 'preparing'"
+  [class.column--ready]="status() === 'ready'"
+  [class.column--served]="status() === 'served'"
+>
+  <header class="column__header">
+    <div class="column__title">
+      @switch (status()) {
+        @case ('new') {
+          <span class="column__icon">
+            <i class="fa-regular fa-clipboard" aria-hidden="true"></i>
+          </span>
+        }
+        @case ('preparing') {
+          <span class="column__icon">
+            <i class="fa-solid fa-kitchen-set" aria-hidden="true"></i>
+          </span>
+        }
+        @case ('ready') {
+          <span class="column__icon">
+            <i class="fa-solid fa-bell-concierge" aria-hidden="true"></i>
+          </span>
+        }
+        @case ('served') {
+          <span class="column__icon">
+            <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+          </span>
+        }
+      }
+      <div>
+        <h2>
+          {{ 'orders.' + status() | transloco }}
+        </h2>
+        <span class="column__description">
+          @switch (status()) {
+            @case ('new') {
+              Waiting to be started
+            }
+            @case ('preparing') {
+              Being prepared in the kitchen
+            }
+            @case ('ready') {
+              Ready to be served
+            }
+
+            @case ('served') {
+              Completed orders
+            }
+          }
+        </span>
+      </div>
+    </div>
+    <span class="column__count">
+      {{ orders().length }}
+    </span>
+  </header>
+
+  <div class="column__content">
+    @for (order of orders(); track order.id) {
+      <app-order-card
+        [order]="order"
+        [now]="now()"
+        [total]="totals().get(order.id)?.total ?? 0"
+        [pending]="pendingIds().has(order.id)"
+        (moveForward)="moveForward.emit($event)"
+        (open)="open.emit($event)"
+      />
+    } @empty {
+      <div class="column__empty">
+        <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+        <span>
+          {{ 'orders.noOrders' | transloco }}
+        </span>
+      </div>
+    }
+  </div>
+</section>

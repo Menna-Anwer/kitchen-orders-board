@@ -1,0 +1,83 @@
+<div class="filters">
+
+  <!-- Search -->
+  <mat-form-field
+    class="filters__search"
+    appearance="outline"
+  >
+    <mat-label>
+      {{ 'orders.search' | transloco }}
+    </mat-label>
+
+    <mat-icon matPrefix>
+      search
+    </mat-icon>
+
+    <input
+      matInput
+      [formControl]="search"
+      [placeholder]="
+        'orders.searchPlaceholder' | transloco
+      "
+    />
+
+    @if (search.value) {
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        aria-label="Clear search"
+        (click)="search.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+
+
+  <!-- Order Type -->
+  <mat-form-field
+    class="filters__type"
+    appearance="outline"
+  >
+    <mat-label>
+      {{ 'orders.type' | transloco }}
+    </mat-label>
+
+    <mat-select [formControl]="type">
+
+      <mat-option value="">
+        {{ 'common.all' | transloco }}
+      </mat-option>
+
+      <mat-option value="dine-in">
+        <i
+          class="fa-solid fa-utensils"
+          aria-hidden="true"
+        ></i>
+
+        {{ 'orders.dineIn' | transloco }}
+      </mat-option>
+
+      <mat-option value="takeaway">
+        <i
+          class="fa-solid fa-bag-shopping"
+          aria-hidden="true"
+        ></i>
+
+        {{ 'orders.takeaway' | transloco }}
+      </mat-option>
+
+      <mat-option value="delivery">
+        <i
+          class="fa-solid fa-motorcycle"
+          aria-hidden="true"
+        ></i>
+
+        {{ 'orders.delivery' | transloco }}
+      </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+</div>

@@ -1,0 +1,696 @@
+<section class="form-page">
+
+  <!-- Page Header -->
+  <header class="form-page__header">
+
+    <div class="form-page__heading">
+
+      <div class="form-page__title-row">
+
+        <span class="form-page__icon">
+          <i
+            class="fa-solid fa-receipt"
+            aria-hidden="true"
+          ></i>
+        </span>
+
+        <div>
+          <h1>
+            {{ 'orders.newOrder' | transloco }}
+          </h1>
+
+          @if (nextOrderNumber(); as number) {
+            <p>
+              #{{ number }}
+            </p>
+          }
+        </div>
+
+      </div>
+
+      <span class="form-page__subtitle">
+        {{ 'orders.newOrderSubtitle' | transloco }}
+      </span>
+
+    </div>
+
+  </header>
+
+
+  <!-- Loading -->
+  @if (isLoading()) {
+
+    <app-state-message
+      type="loading"
+      [message]="'orders.formLoading'"
+    />
+
+  }
+
+
+  <!-- Error -->
+  @else if (error()) {
+
+    <app-state-message
+      type="error"
+      [message]="error()!"
+      (retry)="retry()"
+    />
+
+  }
+
+
+  <!-- Form -->
+  @else {
+
+    <form
+      class="order-form"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+    >
+
+      <div class="form-layout">
+
+
+        <!-- =================================
+             Main Form
+        ================================== -->
+
+        <div class="form-main">
+
+
+          <!-- =================================
+               Order Information
+          ================================== -->
+
+          <mat-card class="form-card">
+
+            <header class="section-header">
+
+              <div class="section-title">
+
+                <span class="section-number">
+                  1
+                </span>
+
+                <div>
+                  <h2>
+                    {{ 'orders.orderInformation' | transloco }}
+                  </h2>
+
+                  <p>
+                    {{ 'orders.orderInformationHint' | transloco }}
+                  </p>
+                </div>
+
+              </div>
+
+            </header>
+
+
+            <div class="order-info-fields">
+
+
+              <!-- Order Type -->
+
+              <mat-form-field
+                appearance="outline"
+                class="form-field"
+              >
+
+                <mat-label>
+                  {{ 'orders.type' | transloco }}
+                </mat-label>
+
+                <mat-select formControlName="type">
+
+                  <mat-option value="dine-in">
+
+                    <i
+                      class="fa-solid fa-utensils"
+                      aria-hidden="true"
+                    ></i>
+
+                    {{ 'orders.dineIn' | transloco }}
+
+                  </mat-option>
+
+
+                  <mat-option value="takeaway">
+
+                    <i
+                      class="fa-solid fa-bag-shopping"
+                      aria-hidden="true"
+                    ></i>
+
+                    {{ 'orders.takeaway' | transloco }}
+
+                  </mat-option>
+
+
+                  <mat-option value="delivery">
+
+                    <i
+                      class="fa-solid fa-motorcycle"
+                      aria-hidden="true"
+                    ></i>
+
+                    {{ 'orders.delivery' | transloco }}
+
+                  </mat-option>
+
+                </mat-select>
+
+              </mat-form-field>
+
+
+              <!-- Table -->
+
+              @if (form.controls.type.value === 'dine-in') {
+
+                <mat-form-field
+                  appearance="outline"
+                  class="form-field"
+                >
+
+                  <mat-label>
+                    {{ 'orders.table' | transloco }}
+                  </mat-label>
+
+                  <input
+                    matInput
+                    type="number"
+                    min="1"
+                    max="40"
+                    formControlName="table"
+                    [placeholder]="
+                      'orders.tablePlaceholder'
+                        | transloco
+                    "
+                  />
+
+                  @if (
+                    form.controls.table.hasError('required')
+                  ) {
+
+                    <mat-error>
+                      {{ 'orders.tableRequired' | transloco }}
+                    </mat-error>
+
+                  }
+
+                  @if (
+                    form.controls.table.hasError('min') ||
+                    form.controls.table.hasError('max')
+                  ) {
+
+                    <mat-error>
+                      {{ 'orders.tableRange' | transloco }}
+                    </mat-error>
+
+                  }
+
+                </mat-form-field>
+
+              }
+
+
+              <!-- Delivery Phone -->
+
+              @if (form.controls.type.value === 'delivery') {
+
+                <mat-form-field
+                  appearance="outline"
+                  class="form-field"
+                >
+
+                  <mat-label>
+                    {{ 'orders.phone' | transloco }}
+                  </mat-label>
+
+                  <input
+                    matInput
+                    type="tel"
+                    inputmode="numeric"
+                    formControlName="phone"
+                    placeholder="01xxxxxxxxx"
+                  />
+
+                  <mat-hint>
+                    {{ 'orders.phoneHint' | transloco }}
+                  </mat-hint>
+
+                  @if (
+                    form.controls.phone.hasError('required')
+                  ) {
+
+                    <mat-error>
+                      {{ 'orders.phoneRequired' | transloco }}
+                    </mat-error>
+
+                  }
+
+                  @if (
+                    form.controls.phone.hasError('egyptianMobile')
+                  ) {
+
+                    <mat-error>
+                      {{ 'orders.phoneInvalid' | transloco }}
+                    </mat-error>
+
+                  }
+
+                </mat-form-field>
+
+              }
+
+            </div>
+
+          </mat-card>
+
+
+          <!-- =================================
+               Items
+          ================================== -->
+
+          <mat-card class="form-card">
+
+            <header class="section-header">
+
+              <div class="section-title">
+
+                <span class="section-number">
+                  2
+                </span>
+
+                <div>
+
+                  <h2>
+                    {{ 'orders.items' | transloco }}
+                  </h2>
+
+                  <p>
+                    {{ 'orders.itemsHint' | transloco }}
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <button
+                mat-stroked-button
+                type="button"
+                class="add-item-button"
+                (click)="addItem()"
+              >
+
+                <i
+                  class="fa-solid fa-plus"
+                  aria-hidden="true"
+                ></i>
+
+                {{ 'orders.addItem' | transloco }}
+
+              </button>
+
+            </header>
+
+
+            <div
+              class="items-form"
+              formArrayName="items"
+            >
+
+              @for (
+                item of items.controls;
+                track item;
+                let i = $index
+              ) {
+
+                <article
+                  class="item-row"
+                  [formGroupName]="i"
+                >
+
+                  <!-- Item number -->
+
+                  <span class="item-row__number">
+                    {{ i + 1 }}
+                  </span>
+
+
+                  <div class="item-row__fields">
+
+
+                    <!-- Menu Item -->
+
+                    <mat-form-field
+                      appearance="outline"
+                      class="form-field"
+                    >
+
+                      <mat-label>
+                        {{ 'orders.menuItem' | transloco }}
+                      </mat-label>
+
+                      <mat-select formControlName="menuId">
+
+                        @for (
+                          menuItem of menu();
+                          track menuItem.id
+                        ) {
+
+                          <mat-option
+                            [value]="menuItem.id"
+                          >
+
+                            {{ menuItem.name }}
+
+                            <span class="menu-option-price">
+                              — EGP
+                              {{ menuItem.price | number:'1.2-2' }}
+                            </span>
+
+                          </mat-option>
+
+                        }
+
+                      </mat-select>
+
+
+                      @if (
+                        item.controls.menuId.hasError('required')
+                      ) {
+
+                        <mat-error>
+                          {{ 'orders.menuRequired' | transloco }}
+                        </mat-error>
+
+                      }
+
+                    </mat-form-field>
+
+
+                    <!-- Quantity -->
+
+                    <mat-form-field
+                      appearance="outline"
+                      class="form-field quantity-field"
+                    >
+
+                      <mat-label>
+                        {{ 'orders.quantity' | transloco }}
+                      </mat-label>
+
+                      <input
+                        matInput
+                        type="number"
+                        min="1"
+                        max="20"
+                        formControlName="qty"
+                      />
+
+                      @if (
+                        item.controls.qty.hasError('min') ||
+                        item.controls.qty.hasError('max')
+                      ) {
+
+                        <mat-error>
+                          {{ 'orders.quantityRange' | transloco }}
+                        </mat-error>
+
+                      }
+
+                    </mat-form-field>
+
+
+                    <!-- Note -->
+
+                    <mat-form-field
+                      appearance="outline"
+                      class="form-field"
+                    >
+
+                      <mat-label>
+                        {{ 'orders.note' | transloco }}
+                      </mat-label>
+
+                      <input
+                        matInput
+                        formControlName="note"
+                        [placeholder]="
+                          'orders.notePlaceholder'
+                            | transloco
+                        "
+                      />
+
+                    </mat-form-field>
+
+
+                    <!-- Remove -->
+
+                    <button
+                      mat-icon-button
+                      type="button"
+                      class="remove-item-button"
+                      [disabled]="items.length === 1"
+                      [attr.aria-label]="
+                        'orders.removeItem' | transloco
+                      "
+                      (click)="removeItem(i)"
+                    >
+
+                      <i
+                        class="fa-solid fa-trash-can"
+                        aria-hidden="true"
+                      ></i>
+
+                    </button>
+
+                  </div>
+
+                </article>
+
+              }
+
+            </div>
+
+
+            @if (
+              items.hasError('atLeastOneItem') &&
+              items.touched
+            ) {
+
+              <div class="form-error">
+
+                <i
+                  class="fa-solid fa-circle-exclamation"
+                  aria-hidden="true"
+                ></i>
+
+                {{ 'orders.atLeastOneItem' | transloco }}
+
+              </div>
+
+            }
+
+
+            <!-- Running Total -->
+
+            <div class="running-total">
+
+              <div class="running-total__label">
+
+                <i
+                  class="fa-solid fa-calculator"
+                  aria-hidden="true"
+                ></i>
+
+                <span>
+                  {{ 'orders.grandTotal' | transloco }}
+                </span>
+
+              </div>
+
+              <strong>
+                EGP
+                {{ runningTotal() | number:'1.2-2' }}
+              </strong>
+
+            </div>
+
+          </mat-card>
+
+        </div>
+
+
+        <!-- =================================
+             Summary
+        ================================== -->
+
+        <aside class="summary-card">
+
+          <header class="summary-card__header">
+
+            <span class="summary-card__icon">
+
+              <i
+                class="fa-solid fa-calculator"
+                aria-hidden="true"
+              ></i>
+
+            </span>
+
+            <div>
+
+              <h2>
+                {{ 'orders.orderSummary' | transloco }}
+              </h2>
+
+              <p>
+                {{ items.length }}
+                {{ 'orders.items' | transloco }}
+              </p>
+
+            </div>
+
+          </header>
+
+
+          <div class="summary-card__body">
+
+            <div class="summary-row">
+
+              <span>
+                {{ 'orders.subtotal' | transloco }}
+              </span>
+
+              <strong>
+                EGP
+                {{ runningTotal() | number:'1.2-2' }}
+              </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <span>
+                {{ 'orders.service' | transloco }}
+                <small>(12%)</small>
+              </span>
+
+              <strong>
+                EGP
+                {{ runningTotal() * 0.12 | number:'1.2-2' }}
+              </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <span>
+                {{ 'orders.vat' | transloco }}
+                <small>(14%)</small>
+              </span>
+
+              <strong>
+                EGP
+                {{
+                  (
+                    runningTotal() +
+                    (
+                      form.controls.type.value === 'dine-in'
+                        ? runningTotal() * 0.12
+                        : 0
+                    )
+                  ) * 0.14
+                  | number:'1.2-2'
+                }}
+              </strong>
+
+            </div>
+
+
+            <div class="summary-row summary-row--total">
+
+              <span>
+                {{ 'orders.grandTotal' | transloco }}
+              </span>
+
+              <strong>
+                EGP
+                {{ runningTotal() | number:'1.2-2' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+
+      <!-- =================================
+           Actions
+      ================================== -->
+
+      <div class="form-actions">
+
+        <button
+          mat-stroked-button
+          type="button"
+          class="form-actions__cancel"
+          routerLink="/orders"
+          [disabled]="submitting()"
+        >
+
+          <i
+            class="fa-solid fa-xmark"
+            aria-hidden="true"
+          ></i>
+
+          {{ 'common.cancel' | transloco }}
+
+        </button>
+
+
+        <button
+          mat-flat-button
+          type="submit"
+          class="form-actions__submit"
+          [disabled]="submitting()"
+        >
+
+          @if (submitting()) {
+
+            <i
+              class="fa-solid fa-spinner fa-spin"
+              aria-hidden="true"
+            ></i>
+
+            {{ 'common.saving' | transloco }}
+
+          } @else {
+
+            <i
+              class="fa-solid fa-check"
+              aria-hidden="true"
+            ></i>
+
+            {{ 'orders.createOrder' | transloco }}
+
+          }
+
+        </button>
+
+      </div>
+
+    </form>
+
+  }
+
+</section>

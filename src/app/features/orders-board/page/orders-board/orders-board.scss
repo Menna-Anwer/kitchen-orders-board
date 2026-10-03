@@ -1,0 +1,117 @@
+@use 'variables' as *;
+
+.orders-page {
+  width: min(calc(100% - 48px), $page-max-width);
+  margin-inline: auto;
+  padding-block: 32px 48px;
+}
+.orders-page__header {
+  margin-block-end: 24px;
+}
+.orders-page__title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.orders-page__icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: $primary-light;
+  color: $primary;
+  font-size: 24px;
+}
+.orders-page__header h1 {
+  margin: 0;
+  color: $text-primary;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.orders-page__header p {
+  margin: 5px 0 0;
+  color: $text-secondary;
+  font-size: 15px;
+  line-height: 22px;
+}
+.refresh-error {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-block-end: 16px;
+  padding-inline: 14px;
+  border: 1px solid #fecdca;
+  border-radius: 10px;
+  background: $danger-light;
+  color: $danger;
+  font-size: 14px;
+  font-weight: 600;
+}
+.refresh-error i {
+  font-size: 15px;
+}
+
+.orders-board {
+  width: 100%;
+  overflow-x: auto;
+  padding-block-end: 12px;
+  scrollbar-width: thin;
+}
+.orders-board__columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+@media (max-width: $tablet) {
+  .orders-page {
+    width: calc(100% - 32px);
+    padding-block: 24px 36px;
+  }
+  .orders-page__header h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .orders-board__columns {
+    grid-template-columns: repeat(4, minmax(280px, 82vw));
+    min-width: 0;
+  }
+}
+
+@media (max-width: $mobile) {
+  .orders-page {
+    width: calc(100% - 24px);
+    padding-block: 20px 28px;
+  }
+  .orders-page__header {
+    margin-block-end: 18px;
+  }
+
+  .orders-page__title {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .orders-page__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+    font-size: 20px;
+  }
+  .orders-page__header h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .orders-page__header p {
+    font-size: 13px;
+    line-height: 20px;
+  }
+  .orders-board__columns {
+    grid-template-columns: repeat(4, minmax(280px, 88vw));
+    gap: 12px;
+  }
+}

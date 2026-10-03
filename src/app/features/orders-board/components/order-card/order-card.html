@@ -1,0 +1,95 @@
+<mat-card class="order-card" [class.order-card--new]="order().status === 'new'"
+  [class.order-card--preparing]="order().status === 'preparing'" [class.order-card--ready]="order().status === 'ready'"
+  [class.order-card--served]="order().status === 'served'" [class.order-card--late]="isLate()">
+  <div class="order-card__header">
+    <strong class="order-card__number">
+      #{{ order().number }}
+    </strong>
+    <span class="order-card__type">
+      @switch (order().type) {
+      @case ('dine-in') {
+      <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+      }
+      @case ('takeaway') {
+      <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+      }
+      @case ('delivery') {
+      <i class="fa-solid fa-motorcycle" aria-hidden="true"></i>
+      }
+      }
+      {{ 'orders.' + order().type | transloco }}
+    </span>
+  </div>
+  <div class="order-card__meta">
+    @if (order().table !== null) {
+    <span>
+      <i class="fa-solid fa-chair" aria-hidden="true"></i>
+      {{ 'orders.table' | transloco }}
+      {{ order().table }}
+    </span>
+    } @else {
+    <span>
+      <i class="fa-solid fa-motorcycle" aria-hidden="true"></i>
+      {{ 'orders.' + order().type | transloco }}
+    </span>
+    }
+    <span class="order-card__separator"> • </span>
+    <span>
+      <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+      {{ order().items.length }}
+      {{ 'orders.items' | transloco }}
+    </span>
+  </div>
+  <div class="order-card__details">
+    <div class="order-card__detail-row">
+      <span>
+        <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+        {{ 'orders.total' | transloco }}
+      </span>
+      <strong>
+        EGP {{ total() | number:'1.2-2' }}
+      </strong>
+    </div>
+    <div class="order-card__detail-row">
+      <span>
+        <i class="fa-regular fa-clock" aria-hidden="true"></i>
+        {{ 'orders.elapsed' | transloco }}
+      </span>
+      <strong>
+        {{ order().createdAt | elapsed: now() }}
+      </strong>
+    </div>
+  </div>
+  @if (isLate()) {
+  <div class="order-card__late">
+    <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+    <span>
+      {{ 'orders.late' | transloco }}
+    </span>
+  </div>
+  }
+  <div class="order-card__actions">
+    <button mat-stroked-button type="button" class="order-card__view" (click)="open.emit(order())">
+      <i class="fa-regular fa-eye" aria-hidden="true"></i>
+      {{ 'common.view' | transloco }}
+    </button>
+
+    @if (order().status !== 'served') {
+    <button mat-flat-button type="button" class="order-card__move" [disabled]="pending()"
+      (click)="moveForward.emit(order())">
+      @if (pending()) {
+      <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+      {{ 'common.saving' | transloco }}
+
+      } @else {
+      <i class="fa-solid fa-forward-step" aria-hidden="true"></i>
+      {{ 'orders.moveForward' | transloco }}
+      }
+
+    </button>
+
+    }
+
+  </div>
+
+</mat-card>

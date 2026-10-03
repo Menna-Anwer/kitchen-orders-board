@@ -1,0 +1,261 @@
+@use 'variables' as *;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 68px;
+  background: $white;
+  border-bottom: 1px solid $border;
+  box-shadow: $shadow-xs;
+}
+.navbar__inner {
+  width: min(calc(100% - 48px), $page-max-width );
+  height: 100%;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar__brand {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: $text-primary;
+  text-decoration: none;
+}
+.navbar__logo {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #111827;
+  color: $white;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: $shadow-xs;
+}
+
+.navbar__brand-text {
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 800;
+  color: $text-primary;
+}
+
+.navbar__menu {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 100%;
+}
+.navbar__links {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar__link {
+  position: relative;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 2px;
+  color: $text-secondary;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition:
+    color $transition-fast;
+}
+.navbar__link i {
+  font-size: 14px;
+}
+.navbar__link:hover {
+  color: $primary;
+}
+.navbar__link--active {
+  color: $text-primary;
+}
+.navbar__link--active::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: $primary;
+}
+
+.navbar__language {
+  flex-shrink: 0;
+  min-width: 112px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-inline: 16px;
+  border: 1px solid #d0d5dd;
+  border-radius: $radius-pill;
+  background: $white;
+  color: $primary;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast;
+}
+
+.navbar__language:hover {
+  background: $primary-light;
+  border-color: $primary;
+}
+
+.navbar__language i {
+  font-size: 15px;
+}
+
+.navbar__menu-button {
+  display: none;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $border;
+  border-radius: 10px;
+  background: $white;
+  color: $text-primary;
+  font-size: 18px;
+}
+
+.navbar__menu-button:hover {
+  border-color: $primary;
+  color: $primary;
+}
+
+
+@media (max-width: $tablet) {
+  .navbar__inner {
+    width: calc(100% - 32px);
+
+    gap: 20px;
+  }
+
+  .navbar__menu {
+    gap: 18px;
+  }
+
+  .navbar__links {
+    gap: 18px;
+  }
+
+  .navbar__brand-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: $mobile) {
+  .navbar {
+    height: auto;
+    min-height: 64px;
+  }
+
+  .navbar__inner {
+    width: calc(100% - 24px);
+    min-height: 64px;
+    position: relative;
+    gap: 12px;
+  }
+
+  .navbar__brand-text {
+    font-size: 16px;
+  }
+
+  .navbar__logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar__menu {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: calc(100% + 1px);
+    height: auto;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px;
+    border: 1px solid $border;
+    border-radius: 0 0 14px 14px;
+    background: $white;
+    box-shadow: $shadow-md;
+  }
+
+  .navbar__menu--open {
+    display: flex;
+  }
+
+  .navbar__links {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .navbar__link {
+    width: 100%;
+    height: 46px;
+    padding-inline: 12px;
+    border-radius: 8px;
+  }
+
+  .navbar__link:hover {
+    background: $primary-light;
+  }
+
+  .navbar__link--active {
+    background: $primary-light;
+    color: $primary;
+  }
+
+  .navbar__link--active::after {
+    display: none;
+  }
+
+  .navbar__language {
+    width: 100%;
+    margin-block-start: 8px;
+  }
+
+  .navbar__menu-button {
+    margin-inline-start: auto;
+
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 375px) {
+  .navbar__inner {
+    width: calc(100% - 16px);
+  }
+
+  .navbar__brand-text {
+    font-size: 15px;
+  }
+
+  .navbar__logo {
+    width: 36px;
+    height: 36px;
+  }
+}
