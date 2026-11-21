@@ -149,7 +149,7 @@ export class OrderForm {
   private createItem(): FormGroup<OrderItemControls> {
     return this.fb.nonNullable.group({
       menuId: this.fb.nonNullable.control('', Validators.required),
-      qty: this.fb.nonNullable.control(1, [Validators.min(1), Validators.max(20)]),
+      qty: this.fb.nonNullable.control(1, [Validators.required, Validators.min(1), Validators.max(20), Validators.pattern(/^[0-9]+$/)]),
       note: this.fb.nonNullable.control(''),
     });
   }
@@ -174,7 +174,7 @@ export class OrderForm {
     table.clearValidators();
     phone.clearValidators();
     if (type === 'dine-in') {
-      table.addValidators([Validators.required, Validators.min(1), Validators.max(40)]);
+      table.addValidators([Validators.required, Validators.min(1), Validators.max(40), Validators.pattern(/^[0-9]+$/)]);
       phone.setValue('', {
         emitEvent: false,
       });
