@@ -1,5 +1,5 @@
 import { subtotalOf, calculateTotals } from './price';
-import { MenuItem } from '../models/menu.model';
+import { MenuItem } from '../../core/models/menu.model';
 
 describe('pricing', () => {
   const menuById = new Map<string, MenuItem>([
