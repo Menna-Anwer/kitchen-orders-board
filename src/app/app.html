@@ -1,5 +1,8 @@
 <app-navbar />
 <app-toasts />
 <main class="app-main">
+  @if (isDemo) {
+    <p class="demo-notice" role="note">{{ 'demo.notice' | transloco }}</p>
+  }
   <router-outlet />
 </main>
