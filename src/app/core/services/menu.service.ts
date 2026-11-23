@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { DemoStore } from './demo.store';
+import { Injectable, inject } from '@angular/core';
+import { Observable, defer, of } from 'rxjs';
 import { AbstractCrudService } from './abstract-crud.service';
 import { MenuItem } from '../models/menu.model';
 
@@ -7,13 +9,14 @@ import { MenuItem } from '../models/menu.model';
   providedIn: 'root',
 })
 export class MenuService extends AbstractCrudService<MenuItem> {
+  private readonly demo = inject(DemoStore);
   constructor() {
     super('menu');
   }
   getMenu(): Observable<MenuItem[]> {
-    return this.getAll();
+    return environment.demo ? defer(() => of(this.demo.menu())) : this.getAll();
   }
   getMenuItemById(id: string): Observable<MenuItem> {
     return this.getById(id);
   }
-}
+  }
