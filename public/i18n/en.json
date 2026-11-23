@@ -87,5 +87,8 @@
     "orderInformationHint": "Choose the order type and enter the required information.",
     "itemsHint": "Add the menu items and quantities for this order.",
     "noItems": "No items in this order."
+  },
+  "demo": {
+    "notice": "Portfolio demo: sample data only. Changes stay in this browser, not shared with other visitors. Do not enter real customer details."
   }
 }

@@ -201,7 +201,7 @@
 
                   @if (
                     form.controls.table.hasError('min') ||
-                    form.controls.table.hasError('max')
+                    form.controls.table.hasError('max') || form.controls.table.hasError('pattern')
                   ) {
 
                     <mat-error>
@@ -413,7 +413,7 @@
 
                       @if (
                         item.controls.qty.hasError('min') ||
-                        item.controls.qty.hasError('max')
+                        item.controls.qty.hasError('max') || item.controls.qty.hasError('required') || item.controls.qty.hasError('pattern')
                       ) {
 
                         <mat-error>
@@ -693,4 +693,4 @@
 
   }
 
-</section>
+    </section>

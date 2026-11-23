@@ -8,6 +8,15 @@ This folder contains:
 | `db.json` | Mock API data (menu and orders) for json-server. |
 | `README.md` | This file: quick start. |
 
+## Portfolio demo
+
+Production builds use bundled fictional data, with order changes saved only in each visitor's browser. There is no shared database or real order submission. Do not enter real customer details. If browser storage is disabled, changes last only for the current tab. Development mode continues to use JSON Server at localhost:3000.
+
+- `npm ci` to install dependencies.
+- `npm start` for local development alongside JSON Server.
+- `npm run build` for the standalone portfolio demo.
+- `npm test -- --watch=false` to run the tests.
+
 ## Quick start
 
 1. Create an Angular 17+ project (standalone, strict mode):
